@@ -2,8 +2,8 @@ const CACHE_NAME = "prayer-companion-v1";
 const FILES_TO_CACHE = [
   "./index.html",
   "./manifest.json",
-  "./icons/icon-192.png",
-  "./icons/icon-512.png"
+  "./icon-192.png",
+  "./icon-512.png"
 ];
 
 // Install: cache the core files
