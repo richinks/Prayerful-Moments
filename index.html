@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prayer Companion</title>
+
+<!-- PWA setup -->
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#4f6fad">
+
+<!-- iOS-specific PWA tags -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Prayer">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background: #f4f7fb;
+    color: #333;
+}
+
+header {
+    background: #4f6fad;
+    color: white;
+    text-align: center;
+    padding: 25px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
+}
+
+.card {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+}
+
+h2 {
+    color: #4f6fad;
+}
+
+textarea,
+input,
+select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 8px;
+    margin-bottom: 12px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+button {
+    background: #4f6fad;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #3f5b91;
+}
+
+.person-card {
+    border-left: 5px solid #4f6fad;
+    padding: 15px;
+    margin-top: 15px;
+    background: #f8fbff;
+}
+
+.day {
+    padding: 10px;
+    border-radius: 8px;
+    background: #eef3fb;
+    margin-bottom: 10px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>🙏 Prayer Companion</h1>
+    <p>Ask • Seek • Knock</p>
+</header>
+
+<div class="container">
+
+    <!-- Daily Prayer -->
+    <div class="card">
+        <h2>Daily Prayer</h2>
+
+        <h3>Ask</h3>
+        <textarea rows="4" placeholder="What are you asking God for today?"></textarea>
+
+        <h3>Seek</h3>
+        <input type="text" placeholder="Today's Bible Verse">
+        <textarea rows="3" placeholder="Reflection on the verse"></textarea>
+
+        <h3>Knock</h3>
+        <textarea rows="6" placeholder="Write your prayer journal entry"></textarea>
+    </div>
+
+    <!-- Gratitude -->
+    <div class="card">
+        <h2>Gratitude Journal</h2>
+        <textarea rows="5" placeholder="What are you thankful for today?"></textarea>
+    </div>
+
+    <!-- Prayer Reminders -->
+    <div class="card">
+        <h2>Prayer Reminders</h2>
+
+        <div class="day"><strong>Sunday:</strong> Family</div>
+        <div class="day"><strong>Monday:</strong> Coworkers</div>
+        <div class="day"><strong>Tuesday:</strong> Friends</div>
+        <div class="day"><strong>Wednesday:</strong> Community</div>
+        <div class="day"><strong>Thursday:</strong> Church</div>
+        <div class="day"><strong>Friday:</strong> Nations & People Groups</div>
+        <div class="day"><strong>Saturday:</strong> Special Prayer Focus</div>
+
+        <p><em>You can customize these prayer focuses later.</em></p>
+    </div>
+
+    <!-- Individual Prayer Profiles -->
+    <div class="card">
+        <h2>People I'm Praying For</h2>
+
+        <div class="person-card">
+            <h3>Tommy</h3>
+            <p><strong>Name Meaning:</strong> Beloved Twin</p>
+            <p><strong>Key Words:</strong> Faithful, Courageous, Kind</p>
+            <p><strong>Life Verse:</strong> Jeremiah 29:11</p>
+            <p><strong>Goals:</strong> Spiritual growth, leadership, wisdom.</p>
+            <p><strong>Prayer:</strong> Lord, guide Tommy in his purpose and strengthen his faith.</p>
+        </div>
+
+        <div class="person-card">
+            <h3>Add New Person</h3>
+
+            <input type="text" placeholder="Name">
+            <input type="text" placeholder="Meaning of Name">
+            <input type="text" placeholder="Prophetic / Encouragement Words">
+            <input type="text" placeholder="Bible Verse">
+            <textarea rows="3" placeholder="Goals"></textarea>
+            <textarea rows="4" placeholder="Prayer"></textarea>
+
+            <button>Save Person</button>
+        </div>
+    </div>
+
+    <!-- World Prayer Focus -->
+    <div class="card">
+        <h2>World Prayer Focus</h2>
+
+        <p>Assign people groups and regions to each day.</p>
+
+        <textarea rows="6"
+        placeholder="Example:
+Sunday - North America
+Monday - East Asia
+Tuesday - Middle East
+Wednesday - Europe
+Thursday - Africa
+Friday - South America
+Saturday - Unreached People Groups"></textarea>
+    </div>
+
+</div>
+
+<script>
+  // Register the service worker for offline support
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => {
+      navigator.serviceWorker.register("sw.js").catch((err) => {
+        console.log("Service worker registration failed:", err);
+      });
+    });
+  }
+</script>
+
+</body>
+</html>
