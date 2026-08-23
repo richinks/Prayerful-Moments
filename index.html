@@ -34,6 +34,39 @@ header {
     padding: 25px;
 }
 
+.nav-buttons {
+    background: white;
+    padding: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    border-bottom: 2px solid #e0e0e0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.nav-btn {
+    background: #e8f0fa;
+    color: #4f6fad;
+    border: 2px solid #4f6fad;
+    padding: 10px 18px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.nav-btn:hover {
+    background: #d0e0f5;
+}
+
+.nav-btn.active {
+    background: #4f6fad;
+    color: white;
+}
+
 .container {
     max-width: 1200px;
     margin: auto;
@@ -46,6 +79,11 @@ header {
     padding: 20px;
     margin-bottom: 20px;
     box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    display: none;
+}
+
+.card.active {
+    display: block;
 }
 
 h2 {
@@ -89,6 +127,25 @@ button:hover {
     background: #eef3fb;
     margin-bottom: 10px;
 }
+
+.person-button {
+    background: #6f7fbd;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-right: 8px;
+    margin-bottom: 8px;
+}
+
+.person-button:hover {
+    background: #5f6fad;
+}
+
+.person-button.active {
+    background: #4f6fad;
+}
 </style>
 </head>
 
@@ -99,10 +156,18 @@ button:hover {
     <p>Ask • Seek • Knock</p>
 </header>
 
+<div class="nav-buttons">
+    <button class="nav-btn active" onclick="showTab('daily', event)">Daily Prayer</button>
+    <button class="nav-btn" onclick="showTab('gratitude', event)">Gratitude</button>
+    <button class="nav-btn" onclick="showTab('reminders', event)">Prayer Reminders</button>
+    <button class="nav-btn" onclick="showTab('people', event)">People I'm Praying For</button>
+    <button class="nav-btn" onclick="showTab('world', event)">World Prayer Focus</button>
+</div>
+
 <div class="container">
 
     <!-- Daily Prayer -->
-    <div class="card">
+    <div id="daily" class="card active">
         <h2>Daily Prayer</h2>
 
         <h3>Ask</h3>
@@ -117,13 +182,13 @@ button:hover {
     </div>
 
     <!-- Gratitude -->
-    <div class="card">
+    <div id="gratitude" class="card">
         <h2>Gratitude Journal</h2>
         <textarea rows="5" placeholder="What are you thankful for today?"></textarea>
     </div>
 
     <!-- Prayer Reminders -->
-    <div class="card">
+    <div id="reminders" class="card">
         <h2>Prayer Reminders</h2>
 
         <div class="day"><strong>Sunday:</strong> Family</div>
@@ -138,10 +203,15 @@ button:hover {
     </div>
 
     <!-- Individual Prayer Profiles -->
-    <div class="card">
+    <div id="people" class="card">
         <h2>People I'm Praying For</h2>
 
-        <div class="person-card">
+        <div id="people-nav-buttons">
+            <button class="person-button active" onclick="showPerson('tommy', event)">Tommy</button>
+            <button class="person-button" onclick="showPerson('add-new', event)">+ Add New Person</button>
+        </div>
+
+        <div id="tommy" class="person-card active">
             <h3>Tommy</h3>
             <p><strong>Name Meaning:</strong> Beloved Twin</p>
             <p><strong>Key Words:</strong> Faithful, Courageous, Kind</p>
@@ -150,7 +220,7 @@ button:hover {
             <p><strong>Prayer:</strong> Lord, guide Tommy in his purpose and strengthen his faith.</p>
         </div>
 
-        <div class="person-card">
+        <div id="add-new" class="person-card">
             <h3>Add New Person</h3>
 
             <input type="text" placeholder="Name">
@@ -165,7 +235,7 @@ button:hover {
     </div>
 
     <!-- World Prayer Focus -->
-    <div class="card">
+    <div id="world" class="card">
         <h2>World Prayer Focus</h2>
 
         <p>Assign people groups and regions to each day.</p>
@@ -184,6 +254,40 @@ Saturday - Unreached People Groups"></textarea>
 </div>
 
 <script>
+  // Tab switching functionality for main sections
+  function showTab(tabName, event) {
+    // Hide all cards
+    const cards = document.querySelectorAll('.card');
+    cards.forEach(card => card.classList.remove('active'));
+    
+    // Remove active class from all navigation buttons
+    const buttons = document.querySelectorAll('.nav-btn');
+    buttons.forEach(btn => btn.classList.remove('active'));
+    
+    // Show selected card
+    document.getElementById(tabName).classList.add('active');
+    
+    // Add active class to clicked button
+    event.target.classList.add('active');
+  }
+
+  // Person switching functionality
+  function showPerson(personName, event) {
+    // Hide all person cards
+    const personCards = document.querySelectorAll('.person-card');
+    personCards.forEach(card => card.classList.remove('active'));
+    
+    // Remove active class from all person buttons
+    const personButtons = document.querySelectorAll('.person-button');
+    personButtons.forEach(btn => btn.classList.remove('active'));
+    
+    // Show selected person
+    document.getElementById(personName).classList.add('active');
+    
+    // Add active class to clicked button
+    event.target.classList.add('active');
+  }
+
   // Register the service worker for offline support
   if ("serviceWorker" in navigator) {
     window.addEventListener("load", () => {
